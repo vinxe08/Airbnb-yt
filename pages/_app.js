@@ -20,3 +20,7 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp
+
+// Style URL mapbox://styles/vinxe08/ckvz4cuxp79rd14m6ibr493q7
+
+// Access token: pk.eyJ1IjoidmlueGUwOCIsImEiOiJja3Z6MGd4a3Q1MHBzMm9tdGo1anB3cDM5In0.C91t9z4wrgDvHbALjZl2Mg

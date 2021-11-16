@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import { useRouter }  from 'next/dist/client/router'
 import { format } from "date-fns"
 import InfoCard from '../components/InfoCard'
+import Map from '../components/Map'
 
 function search({ searchResults }) {
   const router = useRouter();
@@ -19,7 +20,7 @@ function search({ searchResults }) {
   return (
     <div>
       <Header placeholder={`${location} | ${range} | ${noOfGuests} guests` }/>
-      <main className="flex">
+      <main className="flex ">
         <section className="flex-grow pt-14 px-6">
           <p className="text-xs">300+ Stays - {range} - for {noOfGuests} guests</p>
           <h1 className="text-3xl font-semibold mt-2 mb-6">Stay in {location}</h1>
@@ -45,6 +46,9 @@ function search({ searchResults }) {
           ))
           }
           </div>
+        </section>
+        <section className="hidden xl:inline-flex  xl:min-w-[500px]">
+          <Map searchResults={searchResults} />
         </section>
       </main>
 
