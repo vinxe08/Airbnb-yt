@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { useRouter }  from 'next/dist/client/router'
@@ -15,12 +15,10 @@ function search({ searchResults }) {
   const formattedEndDate = format(new Date(endDate), "dd MMMM yy");
   const range = `${formattedStartDate} - ${formattedEndDate}`
 
-  console.log(searchResults)
-
   return (
     <div>
       <Header placeholder={`${location} | ${range} | ${noOfGuests} guests` }/>
-      <main className="flex ">
+      <main className="flex mt-[93px] ">
         <section className="flex-grow pt-14 px-6">
           <p className="text-xs">300+ Stays - {range} - for {noOfGuests} guests</p>
           <h1 className="text-3xl font-semibold mt-2 mb-6">Stay in {location}</h1>
@@ -32,17 +30,18 @@ function search({ searchResults }) {
             <p className="button">More filters</p>
           </div>
           <div className="flex flex-col">
-          {searchResults.map(({img, location, title, description, star, price, total }) => (
-            <InfoCard 
-               key={img}
-               img={img}
-               location={location}
-               title={title}
-               description={description}
-               star={star}
-               price={price}
-               total={total}
-            />
+          {searchResults
+            .map(({img, location, title, description, star, price, total }) => (
+              <InfoCard 
+                key={img}
+                img={img}
+                location={location}
+                title={title}
+                description={description}
+                star={star}
+                price={price}
+                total={total}
+              />
           ))
           }
           </div>
