@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Banner from '../components/Banner'
 import Footer from '../components/Footer';
@@ -5,8 +6,31 @@ import Header from '../components/Header'
 import LargeCard from '../components/LargeCard';
 import MediumCard from '../components/MediumCard';
 import SmallCard from '../components/SmallCard';
+import { motion } from 'framer-motion';
 
 export default function Home({ exploreData, cardsData }) {
+  const [ scrollPosition, setScrollPosition ] = useState(false)
+  const [ medCardPosition, setMedCardPosition ] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const yPos = window.scrollY;
+
+      const position = yPos > 170;
+      setScrollPosition(position)
+
+      const mediumCardScroll = yPos > 600;
+      setMedCardPosition(mediumCardScroll)
+
+    }
+
+    window.addEventListener("scroll", handleScroll, false)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll, false)
+    }
+  })
+
   return (
     <div className="">
       <Head>
@@ -17,10 +41,14 @@ export default function Home({ exploreData, cardsData }) {
       <Header home />
       <Banner />
 
-      <main className="max-w-7xl mx-auto">
-        <section className="px-8 pt-6 sm:px-16">
+      <main className="max-w-full mx-auto">
+        <section className="px-8 pt-6 sm:px-16 overflow-hidden">
           <h2 className="text-4xl font-semibold pb-5">Explore Nerby</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            animate={{ x: scrollPosition ? 0 : -100, opacity: scrollPosition ? 1 : 0 }}
+            transition={{ duration: .6, ease:"easeInOut" }}
+            >
           {exploreData?.map(({img, distance, location}) => (
             <SmallCard 
               key={img}
@@ -28,19 +56,22 @@ export default function Home({ exploreData, cardsData }) {
               distance={distance}
               location={location}
             />
-            ))
-          }
-          </div>
+            )) }
+          </motion.div>
         </section>
 
-        <section className="px-8 sm:px-16">
+        <section className="px-8 sm:px-16 overflow-hidden">
           <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
 
-          <div className="flex space-x-3 overflow-x-scroll scrollbar-hide p-3">
+          <motion.div 
+            className="flex space-x-3 overflow-x-scroll scrollbar-hide p-3"
+            animate={{ x: medCardPosition ? 0 : 300, opacity: medCardPosition ? 1 : 0 }}
+            transition={{ duration: .7 , ease: "easeInOut" }}
+            >
             {cardsData?.map(({img, title}) => (
               <MediumCard key={img} img={img} title={title} />
             ))}
-          </div>
+          </motion.div>
         </section>
 
           <LargeCard 
