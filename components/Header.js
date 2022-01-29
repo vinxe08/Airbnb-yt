@@ -83,7 +83,7 @@ function Header({ placeholder, home }) {
         <div 
           className={home && !scrolled ? "hidden cursor-pointer xl:block px-6  text-[13px] hover:scale-[1.15] transition ease-out active:scale-95 " : "hidden"}
           onClick={() => 
-            setOpenDate(true)
+            setOpenDate(!openDate)
           }
           >
           <h1>Check in</h1>
@@ -91,7 +91,7 @@ function Header({ placeholder, home }) {
         </div>
         <div 
           className={home && !scrolled ? "hidden cursor-pointer xl:block px-6  text-[13px] hover:scale-[1.15] transition ease-out active:scale-95 " : "hidden"}
-          onClick={() => setOpenDate(true)}
+          onClick={() => setOpenDate(!openDate)}
           >
           <h1>Check out</h1>
           <span className="text-gray-300">Add dates</span>
